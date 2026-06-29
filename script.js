@@ -413,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerHTML = originalBtnContent;
 
         if (response.ok) {
-          alert('Thank you! Your message has been sent successfully.');
+          alert("Message sent! I'll respond within 24 hours.");
           contactForm.reset();
         } else {
           alert('Oops! There was a problem submitting your form. Please try again.');
