@@ -1088,6 +1088,26 @@ img {
   transform: translateX(4px);
 }
 
+.form-status {
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  min-height: 20px;
+  transition: all var(--transition-base);
+  opacity: 0;
+}
+
+.form-status.success {
+  color: var(--accent-cyan);
+  opacity: 1;
+}
+
+.form-status.error {
+  color: #ff5252;
+  opacity: 1;
+}
+
 /* ============================================
    FOOTER
    ============================================ */

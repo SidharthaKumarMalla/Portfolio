@@ -387,10 +387,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========== CONTACT FORM SUBMIT (AJAX/Fetch) ==========
   const contactForm = document.getElementById('contact-form');
   const submitBtn = contactForm ? contactForm.querySelector('.form-submit-btn') : null;
+  const formStatus = document.getElementById('form-status');
 
-  if (contactForm && submitBtn) {
+  if (contactForm && submitBtn && formStatus) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
+
+      // Clear previous status
+      formStatus.className = 'form-status';
+      formStatus.innerHTML = '';
 
       // Change button state to sending
       const originalBtnContent = submitBtn.innerHTML;
@@ -413,18 +418,31 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerHTML = originalBtnContent;
 
         if (response.ok) {
-          alert("Message sent! I'll respond within 24 hours.");
+          formStatus.className = 'form-status success';
+          formStatus.innerHTML = "Message sent! I'll respond within 24 hours.";
           contactForm.reset();
         } else {
-          alert('Oops! There was a problem submitting your form. Please try again.');
+          formStatus.className = 'form-status error';
+          formStatus.innerHTML = 'Oops! There was a problem submitting your form. Please try again.';
         }
+
+        // Fade out message after 5 seconds
+        setTimeout(() => {
+          formStatus.style.opacity = '0';
+        }, 5000);
       })
       .catch(error => {
         submitBtn.disabled = false;
         submitBtn.style.opacity = '1';
         submitBtn.innerHTML = originalBtnContent;
         console.error('Error submitting form:', error);
-        alert('An error occurred while sending your message. Please check your network and try again.');
+        
+        formStatus.className = 'form-status error';
+        formStatus.innerHTML = 'An error occurred while sending. Please check your network and try again.';
+
+        setTimeout(() => {
+          formStatus.style.opacity = '0';
+        }, 5000);
       });
     });
   }
