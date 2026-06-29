@@ -384,4 +384,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // ========== CONTACT FORM SUBMIT (AJAX/Fetch) ==========
+  const contactForm = document.getElementById('contact-form');
+  const submitBtn = contactForm ? contactForm.querySelector('.form-submit-btn') : null;
+
+  if (contactForm && submitBtn) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Change button state to sending
+      const originalBtnContent = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.7';
+      submitBtn.innerHTML = 'Sending...';
+
+      const formData = new FormData(contactForm);
+
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        submitBtn.innerHTML = originalBtnContent;
+
+        if (response.ok) {
+          alert('Thank you! Your message has been sent successfully.');
+          contactForm.reset();
+        } else {
+          alert('Oops! There was a problem submitting your form. Please try again.');
+        }
+      })
+      .catch(error => {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        submitBtn.innerHTML = originalBtnContent;
+        console.error('Error submitting form:', error);
+        alert('An error occurred while sending your message. Please check your network and try again.');
+      });
+    });
+  }
+
 });
