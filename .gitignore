@@ -1,0 +1,25 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Screenshots (design references, not part of the site)
+Screenshot*.png
+
+# Word docs (planning docs)
+*.docx
+
+# Node modules (if using http-server locally)
+node_modules/
+package-lock.json
+
+# Logs
+*.log
